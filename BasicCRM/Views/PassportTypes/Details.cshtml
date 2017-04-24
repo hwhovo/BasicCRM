@@ -1,0 +1,26 @@
+﻿@model BasicCRM.Models.PassportType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PassportType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PassportTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassportTypeName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PassportTypeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Basic CRM", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>
+                        <ul class="subMenu nav navbar-nav">
+                            <li>
+                                @Html.ActionLink("Users", "Index", "Users")
+                                <ul>
+                                    <li>@Html.ActionLink("Phone Numbers", "Index", "PhoneNumbers")</li>
+
+                                    <li>
+                                        @Html.ActionLink("Passports", "Index", "Passports")
+
+                                        <ul>
+                                            <li>@Html.ActionLink("Passport Types", "Index", "PassportTypes")</li>
+                                        </ul>
+                                    </li>
+
+                                    @*<li>@Html.ActionLink("Users Types", "Index", "UsersTypes")</li>*@
+                                    <li>@Html.ActionLink("Users Status", "Index", "UsersStatus")</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="subMenu nav navbar-nav">
+                            <li>
+                                @Html.ActionLink("Lessons", "Index", "Lessons")
+                                <ul>
+                                    <li>@Html.ActionLink("Bunches", "Index", "Bunches")</li>
+                                    <li>
+                                        @Html.ActionLink("Levels", "Index", "Levels")
+                                        <ul>
+                                            <li>@Html.ActionLink("Level Types", "Index", "LevelTypes")</li>
+                                        </ul>
+                                    </li>
+                                    <li>@Html.ActionLink("Rooms", "Index", "Rooms")</li>
+                                    <li>@Html.ActionLink("Weekdays", "Index", "Weekdays")</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Basic IT Center</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

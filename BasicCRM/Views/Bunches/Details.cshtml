@@ -1,0 +1,82 @@
+﻿@model BasicCRM.Models.Bunch
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Bunch</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BunchName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BunchName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegistationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompleteDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompleteDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Level.LevelName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Level.LevelName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Room.RoomName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Room.RoomName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BunchID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

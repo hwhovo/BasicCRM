@@ -1,0 +1,57 @@
+﻿@model IEnumerable<BasicCRM.Models.Passport>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Authorithy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfIssue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PassportType.PassportTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Authorithy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfIssue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PassportType.PassportTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FirstName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PassportID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PassportID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PassportID })
+        </td>
+    </tr>
+}
+
+</table>

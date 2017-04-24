@@ -1,0 +1,42 @@
+﻿@model BasicCRM.Models.Level
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Level</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LevelName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LevelName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lesson.LessonName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lesson.LessonName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LevelType.LevelTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LevelType.LevelTypeName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LevelID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
