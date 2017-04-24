@@ -1,0 +1,6 @@
+﻿DELETE FROM AspNetUserClaims
+DELETE FROM AspNetUserLogins
+DELETE FROM AspNetUserRoles
+DELETE FROM AspNetRoles
+DELETE FROM Users
+DELETE FROM AspNetUsers

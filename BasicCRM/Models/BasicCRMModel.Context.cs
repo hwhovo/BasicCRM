@@ -19,12 +19,12 @@ namespace BasicCRM.Models
             : base("name=BasicCRMEntities")
         {
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-
+    
         public virtual DbSet<Answer> Answers { get; set; }
         public virtual DbSet<Bunch> Bunches { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }

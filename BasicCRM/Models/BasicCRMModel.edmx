@@ -116,7 +116,7 @@
           <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="20" />
           <Property Name="LastName" Type="nvarchar" MaxLength="20" />
-          <Property Name="Password" Type="nvarchar" MaxLength="20" />
+          <Property Name="Password" Type="nvarchar" MaxLength="200" />
           <Property Name="UserStatusId" Type="int" />
           <Property Name="LessonId" Type="int" />
           <Property Name="RegistationDate" Type="datetime" />
@@ -124,7 +124,7 @@
           <Property Name="FireDate" Type="datetime" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" />
-          <Property Name="AspNetUserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="AspNetUserID" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="UsersStatuses">
           <Key>
@@ -525,7 +525,7 @@
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UserStatusId" Type="Int32" />
           <Property Name="LessonId" Type="Int32" />
           <Property Name="RegistationDate" Type="DateTime" Precision="3" />
@@ -538,7 +538,7 @@
           <NavigationProperty Name="Passports" Relationship="Self.FK__Passports__UserI__22AA2996" FromRole="Users" ToRole="Passports" />
           <NavigationProperty Name="PhoneNumbers" Relationship="Self.FK__PhoneNumb__UserI__1CF15040" FromRole="Users" ToRole="PhoneNumbers" />
           <NavigationProperty Name="UsersStatus" Relationship="Self.FK__Users__StatusId__182C9B23" FromRole="Users" ToRole="UsersStatuses" />
-          <Property Name="AspNetUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AspNetUserID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UsersStatus">
           <Key>
