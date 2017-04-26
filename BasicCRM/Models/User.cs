@@ -20,6 +20,7 @@ namespace BasicCRM.Models
             this.Bunches = new HashSet<Bunch>();
             this.Passports = new HashSet<Passport>();
             this.PhoneNumbers = new HashSet<PhoneNumber>();
+            this.TestsArchives = new HashSet<TestsArchive>();
         }
     
         public int UserID { get; set; }
@@ -43,5 +44,7 @@ namespace BasicCRM.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
         public virtual UsersStatus UsersStatus { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TestsArchive> TestsArchives { get; set; }
     }
 }

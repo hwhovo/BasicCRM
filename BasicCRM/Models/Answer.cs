@@ -14,11 +14,19 @@ namespace BasicCRM.Models
     
     public partial class Answer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Answer()
+        {
+            this.AnswerArchives = new HashSet<AnswerArchive>();
+        }
+    
         public int AnswerID { get; set; }
         public string AnswerText { get; set; }
         public Nullable<decimal> AnswerPoint { get; set; }
         public Nullable<int> QuestionID { get; set; }
     
         public virtual Question Question { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AnswerArchive> AnswerArchives { get; set; }
     }
 }

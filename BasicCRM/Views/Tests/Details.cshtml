@@ -32,16 +32,21 @@
 </div>
 <div class="list_style_type_none">
     <h4>Questions</h4>
+
+    <ol>
         @foreach (Question item in @ViewBag.Questions)
         {
-        <h5>@item.QuestionText</h5>
-        <ul>
-            @foreach (var it in @item.Answers)
+            <li><h5>@item.QuestionText</h5>
+            <ul class="list_style_type_none">
+                @foreach (var it in @item.Answers)
                 {
-                <li><input type="checkbox" />  @it.AnswerText</li>
-            }
-        </ul>
-    }
+                    <li>@*<input type="checkbox" />*@  @it.AnswerText</li>
+                }
+            </ul>
+        </li>
+        }
+    </ol>
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.TestID }) |

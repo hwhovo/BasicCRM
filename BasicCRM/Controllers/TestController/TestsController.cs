@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using BasicCRM.Models;
 using System.IO;
 using BasicCRM.Common;
+using Microsoft.AspNet.Identity;
 
 namespace BasicCRM.Controllers
 {
@@ -199,6 +200,123 @@ namespace BasicCRM.Controllers
             db.Tests.Remove(test);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> Start(int? TestId)
+        {
+            if (TestId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Test test = await db.Tests.FindAsync(TestId);
+
+            if (test == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Title = "Test " + test.Level.LevelName;
+
+            ViewBag.Questions = db.Questions.Where(item => item.TestID == test.TestID);
+
+            return View(test);
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> Start(IEnumerable<int> checkedItemsIds, int? currentTestId)
+        {
+            if (currentTestId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Test test = await db.Tests.FindAsync(currentTestId);
+
+            if (test == null)
+            {
+                return HttpNotFound();
+            }
+
+            var questionsList = db.Questions.Where(item => item.TestID == currentTestId).Include(item => item.Answers);
+
+
+            #region -- calculating user score for test --
+            decimal userScore = 0;
+            decimal questionScore = 0;
+
+            foreach (Question question in questionsList)
+            {
+                questionScore = 0;
+                foreach (Answer answer in question.Answers)
+                {
+                    if ((answer.AnswerPoint == null || answer.AnswerPoint == 0)
+                        && checkedItemsIds.Contains(answer.AnswerID))//if checked wrong answer then question score = 0
+                    {
+                        questionScore = 0;
+                        break;
+                    }
+                    else
+                        questionScore += answer.AnswerPoint ?? 0;
+                }
+                userScore += questionScore;
+            }
+            #endregion  -- calculating user score for test --
+
+
+            #region -- adding testArchive to the database --
+            string AspNetSignedUserId = User.Identity.GetUserId();
+            TestsArchive testArchive = new TestsArchive()
+            {
+                TestId = currentTestId,
+                UserId = db.Users.Where(item => item.AspNetUserID == AspNetSignedUserId).First().UserID,
+                UserScore = userScore,
+                RegDate = DateTime.Now
+            };
+
+            db.TestsArchives.Add(testArchive);
+
+            await db.SaveChangesAsync();
+            #endregion -- adding testArchive to the database --
+
+
+            #region -- adding answersArchives to the database --
+            List<AnswerArchive> answersArchives = new List<AnswerArchive>();
+
+            foreach (Question question in questionsList)
+                foreach (Answer answer in question.Answers)
+                    answersArchives.Add(new AnswerArchive()
+                    {
+                        AnswerId = answer.AnswerID,
+                        IsChecked = checkedItemsIds.Contains(answer.AnswerID),
+                        TestsArchiveId = testArchive.TestsArchiveId,
+                    });
+
+            db.AnswerArchives.AddRange(answersArchives);
+            await db.SaveChangesAsync();
+            #endregion -- adding answersArchives to the database --
+
+
+            return Json( new{ TestsArchiveId = testArchive.TestsArchiveId });
+        }
+
+        public async Task<ActionResult> Complete(int? TestsArchiveId)
+        {
+            if (TestsArchiveId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            TestsArchive testArchive = await db.TestsArchives.FindAsync(TestsArchiveId);
+
+            //ViewBag.Score = Score;
+            //ViewBag.TestId = TestId;
+            //string AspNetSignedUserId = User.Identity.GetUserId();
+            //int userId = db.Users.Where(it => it.AspNetUserID == AspNetSignedUserId).First().UserID;
+
+            //ViewBag.TestArchiveId = db.TestsArchives.Where(item => item.TestId == TestId
+            //&& item.UserId == userId).First().TestsArchiveId;
+
+            return View(testArchive);
         }
 
         protected override void Dispose(bool disposing)

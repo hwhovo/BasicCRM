@@ -1,0 +1,22 @@
+﻿@using BasicCRM.Models
+@model TestsArchive
+@{
+    ViewBag.Title = "Test Complete!";
+}
+
+    
+<h2>Test Complete</h2>
+
+@if (Model == null)
+            {
+    <h4>You'r test failed.Please try again!</h4>
+                @Html.ActionLink("Try Again!", "Start", "Tests", new { Model.TestId }, new { })
+}
+else
+{
+    <h3>Hi @Model.User.FirstName @Model.User.LastName !</h3>
+
+    <h4>Congratulations! You'r score is @Model.UserScore from @Model.Test.Questions.Count</h4>
+                <h5>If you want to check you'r test please click on this @Html.ActionLink("link", "Load", "TestsArchives", new { Model.TestsArchiveId }, new { })</h5>
+}
+

@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="BasicCRMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AnswerArchives">
+          <Key>
+            <PropertyRef Name="AnswerArchiveId" />
+          </Key>
+          <Property Name="AnswerArchiveId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnswerId" Type="int" />
+          <Property Name="TestsArchiveId" Type="int" />
+          <Property Name="IsChecked" Type="bit" />
+        </EntityType>
         <EntityType Name="Answers">
           <Key>
             <PropertyRef Name="AnswerID" />
@@ -109,6 +118,16 @@
           <Property Name="LevelID" Type="int" />
           <Property Name="TestName" Type="nvarchar" MaxLength="40" />
         </EntityType>
+        <EntityType Name="TestsArchives">
+          <Key>
+            <PropertyRef Name="TestsArchiveId" />
+          </Key>
+          <Property Name="TestsArchiveId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="RegDate" Type="datetime" />
+          <Property Name="UserScore" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserID" />
@@ -140,6 +159,30 @@
           <Property Name="WeekdayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WeekdayName" Type="nvarchar" MaxLength="15" />
         </EntityType>
+        <Association Name="FK__AnswerArc__Answe__09746778">
+          <End Role="Answers" Type="Self.Answers" Multiplicity="0..1" />
+          <End Role="AnswerArchives" Type="Self.AnswerArchives" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answers">
+              <PropertyRef Name="AnswerID" />
+            </Principal>
+            <Dependent Role="AnswerArchives">
+              <PropertyRef Name="AnswerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AnswerArc__Tests__0A688BB1">
+          <End Role="TestsArchives" Type="Self.TestsArchives" Multiplicity="0..1" />
+          <End Role="AnswerArchives" Type="Self.AnswerArchives" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestsArchives">
+              <PropertyRef Name="TestsArchiveId" />
+            </Principal>
+            <Dependent Role="AnswerArchives">
+              <PropertyRef Name="TestsArchiveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Answers__Questio__66603565">
           <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
           <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
@@ -296,6 +339,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TestsArch__TestI__793DFFAF">
+          <End Role="Tests" Type="Self.Tests" Multiplicity="0..1" />
+          <End Role="TestsArchives" Type="Self.TestsArchives" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="TestID" />
+            </Principal>
+            <Dependent Role="TestsArchives">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TestsArch__UserI__7A3223E8">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="TestsArchives" Type="Self.TestsArchives" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="TestsArchives">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Users__LessonId__1A14E395">
           <End Role="Lessons" Type="Self.Lessons" Multiplicity="0..1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -321,6 +388,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BasicCRMModelStoreContainer">
+          <EntitySet Name="AnswerArchives" EntityType="Self.AnswerArchives" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Answers" EntityType="Self.Answers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bunches" EntityType="Self.Bunches" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BunchesWeekdays" EntityType="Self.BunchesWeekdays" Schema="dbo" store:Type="Tables" />
@@ -333,9 +401,18 @@
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rooms" EntityType="Self.Rooms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TestsArchives" EntityType="Self.TestsArchives" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersStatuses" EntityType="Self.UsersStatuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Weekdays" EntityType="Self.Weekdays" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AnswerArc__Answe__09746778" Association="Self.FK__AnswerArc__Answe__09746778">
+            <End Role="Answers" EntitySet="Answers" />
+            <End Role="AnswerArchives" EntitySet="AnswerArchives" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AnswerArc__Tests__0A688BB1" Association="Self.FK__AnswerArc__Tests__0A688BB1">
+            <End Role="TestsArchives" EntitySet="TestsArchives" />
+            <End Role="AnswerArchives" EntitySet="AnswerArchives" />
+          </AssociationSet>
           <AssociationSet Name="FK__Answers__Questio__66603565" Association="Self.FK__Answers__Questio__66603565">
             <End Role="Questions" EntitySet="Questions" />
             <End Role="Answers" EntitySet="Answers" />
@@ -388,6 +465,14 @@
             <End Role="Levels" EntitySet="Levels" />
             <End Role="Tests" EntitySet="Tests" />
           </AssociationSet>
+          <AssociationSet Name="FK__TestsArch__TestI__793DFFAF" Association="Self.FK__TestsArch__TestI__793DFFAF">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="TestsArchives" EntitySet="TestsArchives" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TestsArch__UserI__7A3223E8" Association="Self.FK__TestsArch__UserI__7A3223E8">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TestsArchives" EntitySet="TestsArchives" />
+          </AssociationSet>
           <AssociationSet Name="FK__Users__LessonId__1A14E395" Association="Self.FK__Users__LessonId__1A14E395">
             <End Role="Lessons" EntitySet="Lessons" />
             <End Role="Users" EntitySet="Users" />
@@ -410,6 +495,7 @@
           <Property Name="AnswerPoint" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="QuestionID" Type="Int32" />
           <NavigationProperty Name="Question" Relationship="Self.FK__Answers__Questio__66603565" FromRole="Answers" ToRole="Questions" />
+          <NavigationProperty Name="AnswerArchives" Relationship="BasicCRMModel.FK__AnswerArc__Answe__7E02B4CC" FromRole="Answer" ToRole="AnswerArchive" />
         </EntityType>
         <EntityType Name="Bunch">
           <Key>
@@ -517,6 +603,7 @@
           <Property Name="TestName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Level" Relationship="Self.FK__Tests__LevelID__5CD6CB2B" FromRole="Tests" ToRole="Levels" />
           <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__TestI__619B8048" FromRole="Tests" ToRole="Questions" />
+          <NavigationProperty Name="TestsArchives" Relationship="BasicCRMModel.FK__TestsArch__TestI__793DFFAF" FromRole="Test" ToRole="TestsArchive" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -539,6 +626,7 @@
           <NavigationProperty Name="PhoneNumbers" Relationship="Self.FK__PhoneNumb__UserI__1CF15040" FromRole="Users" ToRole="PhoneNumbers" />
           <NavigationProperty Name="UsersStatus" Relationship="Self.FK__Users__StatusId__182C9B23" FromRole="Users" ToRole="UsersStatuses" />
           <Property Name="AspNetUserID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TestsArchives" Relationship="BasicCRMModel.FK__TestsArch__UserI__7A3223E8" FromRole="User" ToRole="TestsArchive" />
         </EntityType>
         <EntityType Name="UsersStatus">
           <Key>
@@ -787,7 +875,97 @@
             <End Role="Bunches" EntitySet="Bunches" />
             <End Role="Weekdays" EntitySet="Weekdays" />
           </AssociationSet>
+          <EntitySet Name="AnswerArchives" EntityType="BasicCRMModel.AnswerArchive" />
+          <EntitySet Name="TestsArchives" EntityType="BasicCRMModel.TestsArchive" />
+          <AssociationSet Name="FK__AnswerArc__Answe__7E02B4CC" Association="BasicCRMModel.FK__AnswerArc__Answe__7E02B4CC">
+            <End Role="Answer" EntitySet="Answers" />
+            <End Role="AnswerArchive" EntitySet="AnswerArchives" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AnswerArc__Tests__7EF6D905" Association="BasicCRMModel.FK__AnswerArc__Tests__7EF6D905">
+            <End Role="TestsArchive" EntitySet="TestsArchives" />
+            <End Role="AnswerArchive" EntitySet="AnswerArchives" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TestsArch__TestI__793DFFAF" Association="BasicCRMModel.FK__TestsArch__TestI__793DFFAF">
+            <End Role="Test" EntitySet="Tests" />
+            <End Role="TestsArchive" EntitySet="TestsArchives" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TestsArch__UserI__7A3223E8" Association="BasicCRMModel.FK__TestsArch__UserI__7A3223E8">
+            <End Role="User" EntitySet="Users" />
+            <End Role="TestsArchive" EntitySet="TestsArchives" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AnswerArchive">
+          <Key>
+            <PropertyRef Name="AnswerArchiveId" />
+          </Key>
+          <Property Name="AnswerId" Type="Int32" />
+          <Property Name="TestsArchiveId" Type="Int32" />
+          <Property Name="IsChecked" Type="Boolean" />
+          <NavigationProperty Name="Answer" Relationship="BasicCRMModel.FK__AnswerArc__Answe__7E02B4CC" FromRole="AnswerArchive" ToRole="Answer" />
+          <NavigationProperty Name="TestsArchive" Relationship="BasicCRMModel.FK__AnswerArc__Tests__7EF6D905" FromRole="AnswerArchive" ToRole="TestsArchive" />
+          <Property Name="AnswerArchiveId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="TestsArchive">
+          <Key>
+            <PropertyRef Name="TestsArchiveId" />
+          </Key>
+          <Property Name="TestsArchiveId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="RegDate" Type="DateTime" Precision="3" />
+          <Property Name="UserScore" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="AnswerArchives" Relationship="BasicCRMModel.FK__AnswerArc__Tests__7EF6D905" FromRole="TestsArchive" ToRole="AnswerArchive" />
+          <NavigationProperty Name="Test" Relationship="BasicCRMModel.FK__TestsArch__TestI__793DFFAF" FromRole="TestsArchive" ToRole="Test" />
+          <NavigationProperty Name="User" Relationship="BasicCRMModel.FK__TestsArch__UserI__7A3223E8" FromRole="TestsArchive" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__AnswerArc__Answe__7E02B4CC">
+          <End Type="BasicCRMModel.Answer" Role="Answer" Multiplicity="0..1" />
+          <End Type="BasicCRMModel.AnswerArchive" Role="AnswerArchive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answer">
+              <PropertyRef Name="AnswerID" />
+            </Principal>
+            <Dependent Role="AnswerArchive">
+              <PropertyRef Name="AnswerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AnswerArc__Tests__7EF6D905">
+          <End Type="BasicCRMModel.TestsArchive" Role="TestsArchive" Multiplicity="0..1" />
+          <End Type="BasicCRMModel.AnswerArchive" Role="AnswerArchive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestsArchive">
+              <PropertyRef Name="TestsArchiveId" />
+            </Principal>
+            <Dependent Role="AnswerArchive">
+              <PropertyRef Name="TestsArchiveId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TestsArch__TestI__793DFFAF">
+          <End Type="BasicCRMModel.Test" Role="Test" Multiplicity="0..1" />
+          <End Type="BasicCRMModel.TestsArchive" Role="TestsArchive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test">
+              <PropertyRef Name="TestID" />
+            </Principal>
+            <Dependent Role="TestsArchive">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TestsArch__UserI__7A3223E8">
+          <End Type="BasicCRMModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="BasicCRMModel.TestsArchive" Role="TestsArchive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="TestsArchive">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -943,6 +1121,27 @@
               <ScalarProperty Name="WeekdayID" ColumnName="WeekdayID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="AnswerArchives">
+            <EntityTypeMapping TypeName="BasicCRMModel.AnswerArchive">
+              <MappingFragment StoreEntitySet="AnswerArchives">
+                <ScalarProperty Name="AnswerArchiveId" ColumnName="AnswerArchiveId" />
+                <ScalarProperty Name="IsChecked" ColumnName="IsChecked" />
+                <ScalarProperty Name="TestsArchiveId" ColumnName="TestsArchiveId" />
+                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TestsArchives">
+            <EntityTypeMapping TypeName="BasicCRMModel.TestsArchive">
+              <MappingFragment StoreEntitySet="TestsArchives">
+                <ScalarProperty Name="UserScore" ColumnName="UserScore" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+                <ScalarProperty Name="TestsArchiveId" ColumnName="TestsArchiveId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

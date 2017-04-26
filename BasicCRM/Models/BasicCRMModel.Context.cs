@@ -39,5 +39,7 @@ namespace BasicCRM.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UsersStatus> UsersStatuses { get; set; }
         public virtual DbSet<Weekday> Weekdays { get; set; }
+        public virtual DbSet<AnswerArchive> AnswerArchives { get; set; }
+        public virtual DbSet<TestsArchive> TestsArchives { get; set; }
     }
 }

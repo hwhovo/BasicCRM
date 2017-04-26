@@ -203,9 +203,13 @@
     <Compile Include="Controllers\AdminControllers\Users\UsersController.cs" />
     <Compile Include="Controllers\AdminControllers\Users\UsersStatusController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestController\TestsArchivesController.cs" />
     <Compile Include="Controllers\TestController\TestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AnswerArchive.cs">
+      <DependentUpon>BasicCRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Autentification\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs">
@@ -230,6 +234,7 @@
       <DependentUpon>BasicCRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Autentification\IdentityModels.cs" />
+    <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\Lesson.cs">
       <DependentUpon>BasicCRMModel.tt</DependentUpon>
     </Compile>
@@ -256,6 +261,9 @@
       <DependentUpon>BasicCRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Test.cs">
+      <DependentUpon>BasicCRMModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TestsArchive.cs">
       <DependentUpon>BasicCRMModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
@@ -301,9 +309,13 @@
     <Content Include="Models\BasicCRMModel.edmx.diagram">
       <DependentUpon>BasicCRMModel.edmx</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -394,6 +406,18 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\Tests\Start.cshtml" />
+    <Content Include="Views\AnswerArchives\Create.cshtml" />
+    <Content Include="Views\AnswerArchives\Delete.cshtml" />
+    <Content Include="Views\AnswerArchives\Details.cshtml" />
+    <Content Include="Views\AnswerArchives\Edit.cshtml" />
+    <Content Include="Views\AnswerArchives\Index.cshtml" />
+    <Content Include="Views\TestsArchives\Create.cshtml" />
+    <Content Include="Views\TestsArchives\Delete.cshtml" />
+    <Content Include="Views\TestsArchives\Details.cshtml" />
+    <Content Include="Views\TestsArchives\Edit.cshtml" />
+    <Content Include="Views\TestsArchives\Index.cshtml" />
+    <Content Include="Views\Tests\Complete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Uploads\" />
@@ -409,9 +433,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

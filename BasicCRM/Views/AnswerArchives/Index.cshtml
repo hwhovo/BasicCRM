@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BasicCRM.Models.AnswerArchive>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IsChecked)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answer.AnswerText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TestsArchive.TestsArchiveId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsChecked)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Answer.AnswerText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestsArchive.TestsArchiveId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AnswerArchives }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AnswerArchives }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AnswerArchives })
+        </td>
+    </tr>
+}
+
+</table>

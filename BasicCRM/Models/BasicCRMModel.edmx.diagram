@@ -33,6 +33,12 @@
         <AssociationConnector Association="BasicCRMModel.FK__Questions__TestI__619B8048" ManuallyRouted="false" />
         <AssociationConnector Association="BasicCRMModel.FK__Users__StatusId__182C9B23" ManuallyRouted="false" />
         <AssociationConnector Association="BasicCRMModel.BunchesWeekdays" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BasicCRMModel.AnswerArchive" Width="1.5" PointX="14.5" PointY="11.375" />
+        <EntityTypeShape EntityType="BasicCRMModel.TestsArchive" Width="1.5" PointX="12.25" PointY="11" />
+        <AssociationConnector Association="BasicCRMModel.FK__AnswerArc__Answe__7E02B4CC" />
+        <AssociationConnector Association="BasicCRMModel.FK__AnswerArc__Tests__7EF6D905" />
+        <AssociationConnector Association="BasicCRMModel.FK__TestsArch__TestI__793DFFAF" />
+        <AssociationConnector Association="BasicCRMModel.FK__TestsArch__UserI__7A3223E8" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

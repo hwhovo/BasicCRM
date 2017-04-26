@@ -27,11 +27,11 @@ textarea {
     list-style-type: none;
 }
 
-.subMenu li:hover > ul {
+.subMenu  li:hover > ul {
     display: block;
     list-style-type: none;
 }
 
-.list_style_type_none li{
+ul.list_style_type_none {
     list-style-type: none;
 }
