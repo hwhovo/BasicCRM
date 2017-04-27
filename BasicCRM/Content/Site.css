@@ -35,3 +35,14 @@ textarea {
 ul.list_style_type_none {
     list-style-type: none;
 }
+.rightUnCheckedAnswer {
+    color: orange
+}
+
+.rightCheckedAnswer {
+    color: green
+}
+
+.wrongAnswer {
+    color: red
+}

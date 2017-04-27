@@ -1,0 +1,105 @@
+﻿@using BasicCRM.Models;
+
+@model TestsArchive
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Test</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Test.TestName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Test.TestName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Test.Level.LevelName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Test.Level.LevelName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Full Name")
+        </dt>
+
+        <dd>
+            @Model.User.FirstName @Model.User.LastName
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegDate)
+        </dd>
+
+    </dl>
+</div>
+<div class="list_style_type_none">
+    <h4>Questions</h4>
+
+    <ol>
+        @foreach (Question item in Model.Test.Questions)
+        {
+            <li><h5>@item.QuestionText</h5>
+            <ul class="list_style_type_none">
+                @foreach (var it in @item.Answers)
+                {
+
+                    if (it.AnswerArchives.Where(i => i.TestsArchiveId == Model.TestsArchiveId
+                     && i.AnswerId== it.AnswerID).First().IsChecked ?? false)
+                    {
+                        if (@it.AnswerPoint == 0 || @it.AnswerPoint == null)
+                        {
+                            <li class="wrongAnswer">
+                                <input type="checkbox" checked disabled /> @it.AnswerText - @string.Format("{0:0.##}", it.AnswerPoint)
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="rightCheckedAnswer">
+                                <input type="checkbox" checked disabled /> @it.AnswerText - @string.Format("{0:0.##}", it.AnswerPoint)
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        if (@it.AnswerPoint == 0 || @it.AnswerPoint == null)
+                        {
+                            <li>
+                                <input type="checkbox" disabled /> @it.AnswerText
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="rightUnCheckedAnswer">
+                                <input type="checkbox" disabled /> @it.AnswerText
+                            </li>
+                        }
+                    }
+
+                }
+            </ul>
+        </li>
+        }
+    </ol>
+    <div>
+        <br>
+        <h4>You'r score is @Model.UserScore from @Model.Test.Questions.Count</h4>
+    </div>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.TestID }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>

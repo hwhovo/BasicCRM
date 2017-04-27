@@ -131,9 +131,23 @@ namespace BasicCRM.Controllers.TestController
 
 
             //Load Old tested for checking
-        public ActionResult Load(int? TestsArchiveId)
+        public async Task<ActionResult> Load(int? TestsArchiveId)
         {
-            return RedirectToActionPermanent("Details", new { id = TestsArchiveId });
+            if (TestsArchiveId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var testsArchive = await db.TestsArchives.FindAsync(TestsArchiveId);
+
+            if (testsArchive == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(testsArchive);
+
+            //return RedirectToActionPermanent("Details", new { id = TestsArchiveId });
         }
 
         protected override void Dispose(bool disposing)

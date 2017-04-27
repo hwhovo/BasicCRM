@@ -418,9 +418,11 @@
     <Content Include="Views\TestsArchives\Edit.cshtml" />
     <Content Include="Views\TestsArchives\Index.cshtml" />
     <Content Include="Views\Tests\Complete.cshtml" />
+    <Content Include="Views\TestsArchives\Load.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Uploads\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

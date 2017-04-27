@@ -36,7 +36,7 @@ namespace BasicCRM.Common
                                 {
                                     db.Answers.Add(new Answer()
                                     {
-                                        AnswerPoint = decimal.TryParse(content[j, l + 1].Replace(".", ","), out AnswerPoint) ? AnswerPoint : 0m,
+                                        AnswerPoint = decimal.TryParse(content[j, l + 1].Replace(",", "."), out AnswerPoint) ? AnswerPoint : 0m,
                                         AnswerText = content[j, l],
                                         QuestionID = question.QuestionID
                                     });

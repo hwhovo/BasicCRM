@@ -20,7 +20,7 @@
           </Key>
           <Property Name="AnswerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AnswerText" Type="nvarchar(max)" />
-          <Property Name="AnswerPoint" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="AnswerPoint" Type="decimal" Precision="18" Scale="2" />
           <Property Name="QuestionID" Type="int" />
         </EntityType>
         <EntityType Name="Bunches">
@@ -159,7 +159,7 @@
           <Property Name="WeekdayID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WeekdayName" Type="nvarchar" MaxLength="15" />
         </EntityType>
-        <Association Name="FK__AnswerArc__Answe__09746778">
+        <Association Name="FK__AnswerArc__Answe__1D7B6025">
           <End Role="Answers" Type="Self.Answers" Multiplicity="0..1" />
           <End Role="AnswerArchives" Type="Self.AnswerArchives" Multiplicity="*" />
           <ReferentialConstraint>
@@ -183,7 +183,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Answers__Questio__66603565">
+        <Association Name="FK__Answers__Questio__1E6F845E">
           <End Role="Questions" Type="Self.Questions" Multiplicity="0..1" />
           <End Role="Answers" Type="Self.Answers" Multiplicity="*" />
           <ReferentialConstraint>
@@ -405,7 +405,7 @@
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersStatuses" EntityType="Self.UsersStatuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Weekdays" EntityType="Self.Weekdays" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__AnswerArc__Answe__09746778" Association="Self.FK__AnswerArc__Answe__09746778">
+          <AssociationSet Name="FK__AnswerArc__Answe__1D7B6025" Association="Self.FK__AnswerArc__Answe__1D7B6025">
             <End Role="Answers" EntitySet="Answers" />
             <End Role="AnswerArchives" EntitySet="AnswerArchives" />
           </AssociationSet>
@@ -413,7 +413,7 @@
             <End Role="TestsArchives" EntitySet="TestsArchives" />
             <End Role="AnswerArchives" EntitySet="AnswerArchives" />
           </AssociationSet>
-          <AssociationSet Name="FK__Answers__Questio__66603565" Association="Self.FK__Answers__Questio__66603565">
+          <AssociationSet Name="FK__Answers__Questio__1E6F845E" Association="Self.FK__Answers__Questio__1E6F845E">
             <End Role="Questions" EntitySet="Questions" />
             <End Role="Answers" EntitySet="Answers" />
           </AssociationSet>
@@ -492,7 +492,7 @@
           </Key>
           <Property Name="AnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AnswerText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AnswerPoint" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="AnswerPoint" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="QuestionID" Type="Int32" />
           <NavigationProperty Name="Question" Relationship="Self.FK__Answers__Questio__66603565" FromRole="Answers" ToRole="Questions" />
           <NavigationProperty Name="AnswerArchives" Relationship="BasicCRMModel.FK__AnswerArc__Answe__7E02B4CC" FromRole="Answer" ToRole="AnswerArchive" />
