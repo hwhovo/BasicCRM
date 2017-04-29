@@ -204,6 +204,14 @@ namespace BasicCRM.Controllers
 
         public async Task<ActionResult> Start(int? TestId)
         {
+            string AspNetSignedUserId = User.Identity.GetUserId();
+            int signedUserId = db.Users.Where(item => item.AspNetUserID == AspNetSignedUserId).First().UserID;
+
+            if (db.TestsArchives.Where(item => item.TestId == TestId && item.UserId == signedUserId).Count() > 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Conflict);
+            }
+
             if (TestId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -214,6 +222,18 @@ namespace BasicCRM.Controllers
             {
                 return HttpNotFound();
             }
+
+            TestsArchive testArchive = new TestsArchive()
+            {
+                TestId = TestId,
+                UserId = signedUserId,
+                UserScore = 0,
+                RegDate = DateTime.Now
+            };
+
+            db.TestsArchives.Add(testArchive);
+            await db.SaveChangesAsync();
+
             ViewBag.Title = "Test " + test.Level.LevelName;
 
             ViewBag.Questions = db.Questions.Where(item => item.TestID == test.TestID);
@@ -225,6 +245,11 @@ namespace BasicCRM.Controllers
         [HttpPost]
         public async Task<ActionResult> Start(IEnumerable<int> checkedItemsIds, int? currentTestId)
         {
+            if (checkedItemsIds == null)
+            {
+                return Json(new { TestsArchiveId = "NoCheckedItem" });
+            }
+
             if (currentTestId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -235,6 +260,19 @@ namespace BasicCRM.Controllers
             if (test == null)
             {
                 return HttpNotFound();
+            }
+
+            string AspNetSignedUserId = User.Identity.GetUserId();
+            int signedUserId = db.Users.Where(item => item.AspNetUserID == AspNetSignedUserId).First().UserID;
+            var testArchives = db.TestsArchives.Where(item => item.TestId == currentTestId && item.UserId == signedUserId);
+
+            if (testArchives.Count() == 0)
+            {
+                return RedirectToAction("Start", new { TestId = currentTestId });
+            }
+            else if(testArchives.Count() != 0)
+            { 
+                return new HttpStatusCodeResult(HttpStatusCode.Conflict);
             }
 
             var questionsList = db.Questions.Where(item => item.TestID == currentTestId).Include(item => item.Answers);
@@ -249,14 +287,16 @@ namespace BasicCRM.Controllers
                 questionScore = 0;
                 foreach (Answer answer in question.Answers)
                 {
-                    if ((answer.AnswerPoint == null || answer.AnswerPoint == 0)
-                        && checkedItemsIds.Contains(answer.AnswerID))//if checked wrong answer then question score = 0
+                    if (checkedItemsIds.Contains(answer.AnswerID))
                     {
-                        questionScore = 0;
-                        break;
+                        if (answer.AnswerPoint == null || answer.AnswerPoint == 0)//if checked wrong answer then question score = 0
+                        {
+                            questionScore = 0;
+                            break;
+                        }
+                        else
+                            questionScore += answer.AnswerPoint ?? 0;
                     }
-                    else
-                        questionScore += answer.AnswerPoint ?? 0;
                 }
                 userScore += questionScore;
             }
@@ -264,16 +304,10 @@ namespace BasicCRM.Controllers
 
 
             #region -- adding testArchive to the database --
-            string AspNetSignedUserId = User.Identity.GetUserId();
-            TestsArchive testArchive = new TestsArchive()
-            {
-                TestId = currentTestId,
-                UserId = db.Users.Where(item => item.AspNetUserID == AspNetSignedUserId).First().UserID,
-                UserScore = userScore,
-                RegDate = DateTime.Now
-            };
+            var currentTestArchive = testArchives.First();
 
-            db.TestsArchives.Add(testArchive);
+            currentTestArchive.UserScore = userScore;
+            db.Entry(currentTestArchive).State = EntityState.Modified;
 
             await db.SaveChangesAsync();
             #endregion -- adding testArchive to the database --
@@ -288,7 +322,7 @@ namespace BasicCRM.Controllers
                     {
                         AnswerId = answer.AnswerID,
                         IsChecked = checkedItemsIds.Contains(answer.AnswerID),
-                        TestsArchiveId = testArchive.TestsArchiveId,
+                        TestsArchiveId = currentTestArchive.TestsArchiveId,
                     });
 
             db.AnswerArchives.AddRange(answersArchives);
@@ -296,7 +330,7 @@ namespace BasicCRM.Controllers
             #endregion -- adding answersArchives to the database --
 
 
-            return Json( new{ TestsArchiveId = testArchive.TestsArchiveId });
+            return Json( new{ TestsArchiveId = currentTestArchive.TestsArchiveId });
         }
 
         public async Task<ActionResult> Complete(int? TestsArchiveId)

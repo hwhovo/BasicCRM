@@ -35,6 +35,17 @@ textarea {
 ul.list_style_type_none {
     list-style-type: none;
 }
+
+.list_style_type_none pre {
+    padding:0;
+    display:inline;
+    margin:0;
+    border:0px  none;
+    background-color:inherit;
+
+}
+
+
 .rightUnCheckedAnswer {
     color: orange
 }
@@ -45,4 +56,10 @@ ul.list_style_type_none {
 
 .wrongAnswer {
     color: red
+}
+
+
+.testStyle p {
+    display: inline-flex;
+    white-space: pre;
 }

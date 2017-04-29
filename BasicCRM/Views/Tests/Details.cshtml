@@ -30,17 +30,17 @@
 
     </dl>
 </div>
-<div class="list_style_type_none">
+<div class="testStyle">
     <h4>Questions</h4>
 
     <ol>
         @foreach (Question item in @ViewBag.Questions)
         {
-            <li><h5>@item.QuestionText</h5>
-            <ul class="list_style_type_none">
+            <li><p>@item.QuestionText</p>
+            <ul class="">
                 @foreach (var it in @item.Answers)
                 {
-                    <li>@*<input type="checkbox" />*@  @it.AnswerText</li>
+                    <li><p>@it.AnswerText</p></li>
                 }
             </ul>
         </li>

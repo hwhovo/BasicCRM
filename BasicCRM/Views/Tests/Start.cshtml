@@ -26,7 +26,7 @@
 
     </dl>
 </div>
-<div class="list_style_type_none">
+<div class=" testStyle">
     <h4>Questions</h4>
 
     @using (Html.BeginForm("Start", "Tests", FormMethod.Post))
@@ -35,11 +35,11 @@
         <ol class="questionNumbers">
             @foreach (Question item in @ViewBag.Questions)
                 {
-            <li><h5>@item.QuestionText</h5>
+            <li><p>@item.QuestionText</p>
             <ul class="list_style_type_none">
                 @foreach (var it in @item.Answers)
                 {
-                    <li><input class="checkBoxItem" type="checkbox" value="@it.AnswerID" />  @it.AnswerText</li>
+                    <li><input class="checkBoxItem" type="checkbox" value="@it.AnswerID" /><p>  @it.AnswerText</p></li>
                 }
             </ul>
             </li>
@@ -65,13 +65,19 @@
             $(".checkBoxItem:checked").each(function () {
                 checkedItemsList.push($(this).val());
             });
-
+            if (checkedItemsList.length == 0) {
+                alert('Please check any answer!');
+                return;
+            }
 
             $.ajax({
                 type: 'post',
                 url: '/Tests/Start',
                 data: { checkedItemsIds: checkedItemsList, currentTestId: testId },
                 success: function (response) {
+                    if (response == "NoCheckedItem")
+                        alert('Plaese check any answer');
+                    else
                     window.location.href = "/Tests/Complete?TestsArchiveId="+response.TestsArchiveId
                 }
             });

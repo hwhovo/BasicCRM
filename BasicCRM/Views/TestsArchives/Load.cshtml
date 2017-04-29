@@ -3,7 +3,7 @@
 @model TestsArchive
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Load";
 }
 
 <h2>Details</h2>
@@ -46,13 +46,13 @@
 
     </dl>
 </div>
-<div class="list_style_type_none">
+<div class="testStyle">
     <h4>Questions</h4>
 
     <ol>
         @foreach (Question item in Model.Test.Questions)
         {
-            <li><h5>@item.QuestionText</h5>
+            <li><p>@item.QuestionText</p>
             <ul class="list_style_type_none">
                 @foreach (var it in @item.Answers)
                 {
@@ -63,14 +63,14 @@
                         if (@it.AnswerPoint == 0 || @it.AnswerPoint == null)
                         {
                             <li class="wrongAnswer">
-                                <input type="checkbox" checked disabled /> @it.AnswerText - @string.Format("{0:0.##}", it.AnswerPoint)
-                            </li>
+                                <input type="checkbox" checked disabled /> <p>@it.AnswerText</p> - @string.Format("{0:0.##}", it.AnswerPoint)
+</li>
                         }
                         else
                         {
                             <li class="rightCheckedAnswer">
-                                <input type="checkbox" checked disabled /> @it.AnswerText - @string.Format("{0:0.##}", it.AnswerPoint)
-                            </li>
+                                <input type="checkbox" checked disabled /> <p>@it.AnswerText</p> - @string.Format("{0:0.##}", it.AnswerPoint)
+</li>
                         }
                     }
                     else
@@ -78,14 +78,14 @@
                         if (@it.AnswerPoint == 0 || @it.AnswerPoint == null)
                         {
                             <li>
-                                <input type="checkbox" disabled /> @it.AnswerText
-                            </li>
+                                <input type="checkbox" disabled /> <p>@it.AnswerText</p>
+</li>
                         }
                         else
                         {
                             <li class="rightUnCheckedAnswer">
-                                <input type="checkbox" disabled /> @it.AnswerText
-                            </li>
+                                <input type="checkbox" disabled /> <p>@it.AnswerText</p>
+</li>
                         }
                     }
 
