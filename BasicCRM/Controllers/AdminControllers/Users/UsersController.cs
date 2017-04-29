@@ -144,13 +144,13 @@ namespace BasicCRM.Controllers.AdminControllers
             ViewBag.UserStatusId = new SelectList(db.UsersStatuses, "UserStatusId", "UserStatusName");
 
             #region -- Create Roles --
-            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(ApplicationDbContext.Create()));
+            //var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(ApplicationDbContext.Create()));
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(ApplicationDbContext.Create()));
+            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(ApplicationDbContext.Create()));
 
-            roleManager.Create(new IdentityRole { Name = "Admin" });
-            roleManager.Create(new IdentityRole { Name = "Employee" });
-            roleManager.Create(new IdentityRole { Name = "Student" });
+            //roleManager.Create(new IdentityRole { Name = "Admin" });
+            //roleManager.Create(new IdentityRole { Name = "Employee" });
+            //roleManager.Create(new IdentityRole { Name = "Student" });
             #endregion -- Create Roles --
 
 

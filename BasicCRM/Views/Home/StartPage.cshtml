@@ -1,0 +1,12 @@
+﻿@model BasicCRM.Models.User
+
+@{
+    ViewBag.Title = "BasicCRM";
+}
+
+
+<h5>Welcome @Model.FirstName @Model.LastName to Basic IT Center CRM! You can choose the following actions</h5>
+<ul>
+    <li>@Html.ActionLink("Start Test", "Start", "Tests", new { TestId = @ViewBag.TestId }, new { })</li>  
+    <li>@Html.ActionLink("Old Tests", "Tests", "TestsArchives")</li>
+</ul>

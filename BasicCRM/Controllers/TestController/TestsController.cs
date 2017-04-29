@@ -234,6 +234,7 @@ namespace BasicCRM.Controllers
             db.TestsArchives.Add(testArchive);
             await db.SaveChangesAsync();
 
+
             ViewBag.Title = "Test " + test.Level.LevelName;
 
             ViewBag.Questions = db.Questions.Where(item => item.TestID == test.TestID);
@@ -270,7 +271,7 @@ namespace BasicCRM.Controllers
             {
                 return RedirectToAction("Start", new { TestId = currentTestId });
             }
-            else if(testArchives.Count() != 0)
+            else if(testArchives.Count() != 1)
             { 
                 return new HttpStatusCodeResult(HttpStatusCode.Conflict);
             }

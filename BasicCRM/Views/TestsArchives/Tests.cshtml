@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BasicCRM.Models.TestsArchive>
+
+@{
+    ViewBag.Title = "Tests";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Test.TestName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Test.Level.LevelName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegDate)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Test.TestName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Test.Level.LevelName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegDate)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Load", new { TestsArchiveId = item.TestsArchiveId }) |
+            </td>
+        </tr>
+    }
+
+</table>

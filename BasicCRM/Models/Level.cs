@@ -25,6 +25,7 @@ namespace BasicCRM.Models
         public string LevelName { get; set; }
         public Nullable<int> LessonID { get; set; }
         public Nullable<int> LevelTypeID { get; set; }
+        public string LevelPrefix { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bunch> Bunches { get; set; }

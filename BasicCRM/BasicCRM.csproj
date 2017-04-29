@@ -419,6 +419,8 @@
     <Content Include="Views\TestsArchives\Index.cshtml" />
     <Content Include="Views\Tests\Complete.cshtml" />
     <Content Include="Views\TestsArchives\Load.cshtml" />
+    <Content Include="Views\Home\StartPage.cshtml" />
+    <Content Include="Views\TestsArchives\Tests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Uploads\" />

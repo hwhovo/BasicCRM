@@ -11,7 +11,8 @@ namespace BasicCRM.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Bunch
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,6 +25,7 @@ namespace BasicCRM.Models
         public string BunchName { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> LevelID { get; set; }
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> RegistationDate { get; set; }
         public Nullable<System.DateTime> CompleteDate { get; set; }
         public Nullable<int> RoomID { get; set; }

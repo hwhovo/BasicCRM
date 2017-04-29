@@ -60,6 +60,7 @@
           <Property Name="LevelName" Type="nvarchar" MaxLength="20" />
           <Property Name="LessonID" Type="int" />
           <Property Name="LevelTypeID" Type="int" />
+          <Property Name="LevelPrefix" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="LevelTypes">
           <Key>
@@ -536,6 +537,7 @@
           <NavigationProperty Name="Lesson" Relationship="Self.FK__Levels__LessonID__25869641" FromRole="Levels" ToRole="Lessons" />
           <NavigationProperty Name="LevelType" Relationship="Self.FK__Levels__LevelTyp__267ABA7A" FromRole="Levels" ToRole="LevelTypes" />
           <NavigationProperty Name="Tests" Relationship="Self.FK__Tests__LevelID__5CD6CB2B" FromRole="Levels" ToRole="Tests" />
+          <Property Name="LevelPrefix" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="LevelType">
           <Key>
@@ -1008,6 +1010,7 @@
           <EntitySetMapping Name="Levels">
             <EntityTypeMapping TypeName="BasicCRMModel.Level">
               <MappingFragment StoreEntitySet="Levels">
+                <ScalarProperty Name="LevelPrefix" ColumnName="LevelPrefix" />
                 <ScalarProperty Name="LevelID" ColumnName="LevelID" />
                 <ScalarProperty Name="LevelName" ColumnName="LevelName" />
                 <ScalarProperty Name="LessonID" ColumnName="LessonID" />

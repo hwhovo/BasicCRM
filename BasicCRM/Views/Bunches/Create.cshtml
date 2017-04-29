@@ -90,7 +90,24 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script>
+    $(document).ready(function () {
+        $('#LevelID').change(function (e) {
+            var value= $(this).val();
 
+            var levelName = $('#LevelID option[value=' + value + ']').text();
+
+            $.ajax({
+                type: 'post',
+                url: '/Bunches/GenerateBunchName',
+                data: { LevelName: levelName},
+                success: function (response) {
+                    $('#BunchName').val(response);
+                }
+            });
+        });
+    });
+</script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BasicCRM.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BasicCRM.Controllers.TestController
 {
@@ -126,11 +127,19 @@ namespace BasicCRM.Controllers.TestController
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> DeleteConfirmed(int id)
         //{
-            
+
         //}
+        [ActionName("Tests")]
+        public async Task<ActionResult> LoadUserTests()
+        {
+            string AspNetSignedUserId = User.Identity.GetUserId();
+            var user = db.Users.Where(item => item.AspNetUserID == AspNetSignedUserId).First();
 
+            var testsArchives = db.TestsArchives.Where(item=>item.UserId == user.UserID).Include(t => t.Test).Include(t => t.User);
+            return View(await testsArchives.ToListAsync());
+        }
 
-            //Load Old tested for checking
+        //Load Old tested for checking
         public async Task<ActionResult> Load(int? TestsArchiveId)
         {
             if (TestsArchiveId == null)
@@ -140,7 +149,7 @@ namespace BasicCRM.Controllers.TestController
 
             var testsArchive = await db.TestsArchives.FindAsync(TestsArchiveId);
 
-            if (testsArchive == null)
+            if (testsArchive == null || testsArchive.AnswerArchives == null || testsArchive.AnswerArchives.Count == 0)
             {
                 return HttpNotFound();
             }

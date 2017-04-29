@@ -55,6 +55,8 @@ namespace BasicCRM.Controllers.AdminControllers
         {
             if (ModelState.IsValid)
             {
+                bunch.RegistationDate = bunch.RegistationDate ?? DateTime.Now;
+
                 db.Bunches.Add(bunch);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -64,6 +66,37 @@ namespace BasicCRM.Controllers.AdminControllers
             ViewBag.RoomID = new SelectList(db.Rooms, "RoomID", "RoomName", bunch.RoomID);
             ViewBag.UserID = new SelectList(db.Users, "UserID", "FirstName", bunch.UserID);
             return View(bunch);
+        }
+
+        public string GenerateBunchName(string LevelName)
+        {
+            if (LevelName == null)
+            {
+                return "";
+            }
+            if (!db.Levels.Any(item => item.LevelName == LevelName))
+            {
+                return "";
+            }
+
+            var level = db.Levels.Where(item => item.LevelName == LevelName).First();
+
+            string BunchName = level.LevelPrefix + "-" + DateTime.Now.ToString("ddMMyyyy").ToString() + "-";
+
+            //Registered Bunches Count Today
+            int count = 1;
+            if (db.Bunches.Any(item => item.Level.LevelName == LevelName))
+            {
+                var levelBunches = db.Bunches.Where(item => item.Level.LevelName == LevelName);
+
+                foreach (var item in levelBunches)
+                    if (item.RegistationDate.Value.ToShortDateString() == DateTime.Now.ToShortDateString())
+                        count += 1;
+            }
+
+            BunchName += count;
+
+            return BunchName;
         }
 
         // GET: Bunches/Edit/5
